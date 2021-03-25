@@ -1,0 +1,77 @@
+Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
+Change Dir: /home/thanhnq/Projects/rpo21/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_f80fe/fast && /usr/bin/make  -f CMakeFiles/cmTC_f80fe.dir/build.make CMakeFiles/cmTC_f80fe.dir/build
+make[1]: Entering directory '/home/thanhnq/Projects/rpo21/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_f80fe.dir/src.c.o
+/home/thanhnq/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=i686-none-linux-android16 --gcc-toolchain=/home/thanhnq/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/thanhnq/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/sysroot   -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -Wall -Wextra -Wwrite-strings -Wpointer-arith -Wimplicit-fallthrough -Wshadow -Wvla -Wformat=2 -Wno-format-nonliteral -Werror -DCMAKE_HAVE_LIBC_PTHREAD -fPIE -o CMakeFiles/cmTC_f80fe.dir/src.c.o -c /home/thanhnq/Projects/rpo21/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp/src.c
+/home/thanhnq/Projects/rpo21/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp/src.c:13:3: error: implicit declaration of function 'pthread_cancel' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+  pthread_cancel(thread);
+  ^
+/home/thanhnq/Projects/rpo21/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp/src.c:13:3: note: did you mean 'pthread_once'?
+/home/thanhnq/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/pthread.h:275:5: note: 'pthread_once' declared here
+int pthread_once(pthread_once_t* __once, void (*__init_routine)(void));
+    ^
+1 error generated.
+make[1]: *** [CMakeFiles/cmTC_f80fe.dir/build.make:85: CMakeFiles/cmTC_f80fe.dir/src.c.o] Error 1
+make[1]: Leaving directory '/home/thanhnq/Projects/rpo21/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp'
+make: *** [Makefile:140: cmTC_f80fe/fast] Error 2
+
+
+Source file was:
+#include <pthread.h>
+
+void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_cancel(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/thanhnq/Projects/rpo21/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_2d7d2/fast && /usr/bin/make  -f CMakeFiles/cmTC_2d7d2.dir/build.make CMakeFiles/cmTC_2d7d2.dir/build
+make[1]: Entering directory '/home/thanhnq/Projects/rpo21/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_2d7d2.dir/CheckFunctionExists.c.o
+/home/thanhnq/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=i686-none-linux-android16 --gcc-toolchain=/home/thanhnq/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/thanhnq/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/sysroot   -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -Wall -Wextra -Wwrite-strings -Wpointer-arith -Wimplicit-fallthrough -Wshadow -Wvla -Wformat=2 -Wno-format-nonliteral -Werror -DCHECK_FUNCTION_EXISTS=pthread_create -fPIE -o CMakeFiles/cmTC_2d7d2.dir/CheckFunctionExists.c.o -c /home/thanhnq/Android/Sdk/cmake/3.18.1/share/cmake-3.18/Modules/CheckFunctionExists.c
+Linking C executable cmTC_2d7d2
+/home/thanhnq/Android/Sdk/cmake/3.18.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2d7d2.dir/link.txt --verbose=1
+/home/thanhnq/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=i686-none-linux-android16 --gcc-toolchain=/home/thanhnq/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/thanhnq/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -Wall -Wextra -Wwrite-strings -Wpointer-arith -Wimplicit-fallthrough -Wshadow -Wvla -Wformat=2 -Wno-format-nonliteral -Werror -DCHECK_FUNCTION_EXISTS=pthread_create -Wl,--exclude-libs,libgcc.a -Wl,--exclude-libs,libgcc_real.a -Wl,--exclude-libs,libatomic.a -static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments -Wl,--gc-sections   CMakeFiles/cmTC_2d7d2.dir/CheckFunctionExists.c.o -o cmTC_2d7d2  -lpthreads -latomic -lm 
+ld: error: unable to find library -lpthreads
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+make[1]: *** [CMakeFiles/cmTC_2d7d2.dir/build.make:106: cmTC_2d7d2] Error 1
+make[1]: Leaving directory '/home/thanhnq/Projects/rpo21/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp'
+make: *** [Makefile:140: cmTC_2d7d2/fast] Error 2
+
+
+
+Determining if the function pthread_create exists in the pthread failed with the following output:
+Change Dir: /home/thanhnq/Projects/rpo21/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_e2c3d/fast && /usr/bin/make  -f CMakeFiles/cmTC_e2c3d.dir/build.make CMakeFiles/cmTC_e2c3d.dir/build
+make[1]: Entering directory '/home/thanhnq/Projects/rpo21/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_e2c3d.dir/CheckFunctionExists.c.o
+/home/thanhnq/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=i686-none-linux-android16 --gcc-toolchain=/home/thanhnq/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/thanhnq/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/sysroot   -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -Wall -Wextra -Wwrite-strings -Wpointer-arith -Wimplicit-fallthrough -Wshadow -Wvla -Wformat=2 -Wno-format-nonliteral -Werror -DCHECK_FUNCTION_EXISTS=pthread_create -fPIE -o CMakeFiles/cmTC_e2c3d.dir/CheckFunctionExists.c.o -c /home/thanhnq/Android/Sdk/cmake/3.18.1/share/cmake-3.18/Modules/CheckFunctionExists.c
+Linking C executable cmTC_e2c3d
+/home/thanhnq/Android/Sdk/cmake/3.18.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e2c3d.dir/link.txt --verbose=1
+/home/thanhnq/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=i686-none-linux-android16 --gcc-toolchain=/home/thanhnq/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/thanhnq/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -Wall -Wextra -Wwrite-strings -Wpointer-arith -Wimplicit-fallthrough -Wshadow -Wvla -Wformat=2 -Wno-format-nonliteral -Werror -DCHECK_FUNCTION_EXISTS=pthread_create -Wl,--exclude-libs,libgcc.a -Wl,--exclude-libs,libgcc_real.a -Wl,--exclude-libs,libatomic.a -static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments -Wl,--gc-sections   CMakeFiles/cmTC_e2c3d.dir/CheckFunctionExists.c.o -o cmTC_e2c3d  -lpthread -latomic -lm 
+ld: error: unable to find library -lpthread
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+make[1]: *** [CMakeFiles/cmTC_e2c3d.dir/build.make:106: cmTC_e2c3d] Error 1
+make[1]: Leaving directory '/home/thanhnq/Projects/rpo21/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp'
+make: *** [Makefile:140: cmTC_e2c3d/fast] Error 2
+
+
+
