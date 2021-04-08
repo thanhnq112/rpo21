@@ -17,6 +17,7 @@ import org.apache.commons.io.IOUtils;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -63,10 +64,20 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onButtonClick(View v) {
 //        byte[] key = StringToHex("0123456789ABCDEF0123456789ABCDE0");
-//        byte[] enc = encrypt(key, StringToHex("00000000000000102"));
+//        byte[] enc = encrypt(key, StringToHex("00102"));
 //        byte[] dec = decrypt(key, enc);
 //        String s = new String(Hex.encodeHex(dec)).toUpperCase();
 //        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+
+
+//        byte[] rnd = randomBytes(16);
+//        byte[] data = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+//        byte[] encrypted = encrypt(rnd, data);
+//        byte[] decrypted = decrypt(rnd, encrypted);
+//        String originalData = new String(data, StandardCharsets.UTF_8);
+//        String encryptedData = new String(encrypted, StandardCharsets.UTF_8);
+//        String decryptedData = new String(decrypted, StandardCharsets.UTF_8);
 
 //        Intent it = new Intent(this, PinpadActivity.class);
 //        startActivity(it);
@@ -83,7 +94,9 @@ public class MainActivity extends AppCompatActivity {
     {
         new Thread(() -> {
             try {
-                HttpURLConnection uc = (HttpURLConnection) (new URL("https://www.wikipedia.org").openConnection());
+//                HttpURLConnection uc = (HttpURLConnection) (new URL("https://www.wikipedia.org").openConnection());
+                HttpURLConnection uc = (HttpURLConnection) (new URL("http://192.168.0.103:8080/api/v1/title").openConnection());
+
                 InputStream inputStream = uc.getInputStream();
                 String html = IOUtils.toString(inputStream);
                 String title = getPageTitle(html);
