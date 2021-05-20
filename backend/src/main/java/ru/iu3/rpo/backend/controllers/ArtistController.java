@@ -9,6 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 import ru.iu3.rpo.backend.models.Artist;
 import ru.iu3.rpo.backend.models.Country;
 import ru.iu3.rpo.backend.repositories.ArtistRepository;
+import ru.iu3.rpo.backend.repositories.CountryRepository;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,8 @@ import java.util.Optional;
 public class ArtistController {
     @Autowired
     ArtistRepository artistRepository;
+    @Autowired
+    CountryRepository countryRepository;
 
     //Read
     @GetMapping("/artists")
@@ -31,6 +34,10 @@ public class ArtistController {
     @PostMapping("/artists")
     public ResponseEntity<Object> createArtist(@Validated @RequestBody Artist artist) {
         try {
+            Optional<Country> cc = countryRepository.findById(artist.country.id);
+            if (cc.isPresent()) {
+                artist.country = cc.get();
+            }
             Artist nc = artistRepository.save(artist);
             return new ResponseEntity<Object>(nc, HttpStatus.OK);
         }

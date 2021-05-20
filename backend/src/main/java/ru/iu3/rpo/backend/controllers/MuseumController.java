@@ -23,13 +23,13 @@ public class MuseumController {
     MuseumRepository museumRepository;
 
     //Read
-    @GetMapping("/museum")
-    public List<Museum> getAllMuseum() {
+    @GetMapping("/museums")
+    public List<Museum> getAllMuseums() {
         return museumRepository.findAll();
     }
 
     //Create
-    @PostMapping("/museum")
+    @PostMapping("/museums")
     public ResponseEntity<Object> createMuseum(@Validated @RequestBody Museum museum) {
         try {
             Museum nc = museumRepository.save(museum);
@@ -37,7 +37,7 @@ public class MuseumController {
         }
         catch (Exception ex) {
             String error;
-            if (ex.getMessage().contains("museum.name_UNIQUE"))
+            if (ex.getMessage().contains("museums.name_UNIQUE"))
                 error = "museum already exists";
             else
                 error = "undefined error";
@@ -47,8 +47,28 @@ public class MuseumController {
         }
     }
 
+    //Create
+//    @PostMapping("/countries")
+//    public ResponseEntity<Object> createCountry(@Validated @RequestBody Country country) {
+//        try {
+//            Country nc = countryRepository.save(country);
+//            return new ResponseEntity<Object>(nc, HttpStatus.OK);
+//        }
+//        catch (Exception ex) {
+//            String error;
+//            if (ex.getMessage().contains("countries.name_UNIQUE"))
+//                error = "country already exists";
+//            else
+//                error = "undefined error";
+//            Map<String, String> map = new HashMap<>();
+//            map.put("error", error);
+//            return new ResponseEntity<Object>(map, HttpStatus.OK);
+//        }
+//    }
+
+
     //Update
-    @PutMapping("/museum/{id}")
+    @PutMapping("/museums/{id}")
     public ResponseEntity<Museum> updateMuseum(@PathVariable(value = "id") Long museumId, @Validated @RequestBody Museum museumDetails) {
         Museum museum = null;
         Optional<Museum> cc = museumRepository.findById(museumId);
@@ -63,8 +83,25 @@ public class MuseumController {
         return ResponseEntity.ok(museum);
     }
 
+
+    //Update
+//    @PutMapping("/countries/{id}")
+//    public ResponseEntity<Country> updateCountry(@PathVariable(value = "id") Long countryId, @Validated @RequestBody Country countryDetails) {
+//        Country country = null;
+//        Optional<Country> cc = countryRepository.findById(countryId);
+//        if (cc.isPresent()) {
+//            country = cc.get();
+//            country.name = countryDetails.name;
+//            countryRepository.save(country);
+//        }
+//        else {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "country not found");
+//        }
+//        return ResponseEntity.ok(country);
+//    }
+
     //Delete
-    @DeleteMapping("/museum/{id}")
+    @DeleteMapping("/museums/{id}")
     public Map<String, Boolean> deleteMuseum(@PathVariable(value = "id") Long museumId) {
         Optional<Museum> museum = museumRepository.findById(museumId);
         Map<String, Boolean> response = new HashMap<>();

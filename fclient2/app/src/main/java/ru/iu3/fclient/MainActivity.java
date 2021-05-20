@@ -94,8 +94,8 @@ public class MainActivity extends AppCompatActivity {
     {
         new Thread(() -> {
             try {
-//                HttpURLConnection uc = (HttpURLConnection) (new URL("https://www.wikipedia.org").openConnection());
-                HttpURLConnection uc = (HttpURLConnection) (new URL("http://192.168.0.103:8080/api/v1/title").openConnection());
+                HttpURLConnection uc = (HttpURLConnection) (new URL("https://www.wikipedia.org").openConnection());
+//                HttpURLConnection uc = (HttpURLConnection) (new URL("http://10.0.2.2:8080/api/v1/title").openConnection());
 
                 InputStream inputStream = uc.getInputStream();
                 String html = IOUtils.toString(inputStream);

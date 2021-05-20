@@ -1,9 +1,15 @@
 package ru.iu3.rpo.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "museum")
+@Table(name = "museums")
 @Access(AccessType.FIELD)
 public class Museum {
 
@@ -21,10 +27,14 @@ public class Museum {
     @Column(name = "location")
     public String location;
 
-//    @JsonIgnore
-//    @ManyToMany
-//    @JoinTable(name = "usermuseums",
-//            joinColumns = @JoinColumn(name = "museumid"),
-//            inverseJoinColumns = @JoinColumn (name = "userid"))
-//    public Set<User> users = new HashSet<>();
+    @JsonIgnore
+    @ManyToMany
+    public List<Painting> paintings = new ArrayList<>();
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "usersmuseums",
+            joinColumns = @JoinColumn(name = "museumid"),
+            inverseJoinColumns = @JoinColumn (name = "userid"))
+    public Set<User> users = new HashSet<>();
 }
