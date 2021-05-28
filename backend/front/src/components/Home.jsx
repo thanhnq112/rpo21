@@ -8,7 +8,9 @@ class Home extends React.Component {
     }
     
     render() {
+        console.log("home page");
         return (
+            
             <div className="mt-5">
                 <h2>RPO Art Frontend</h2>
             </div>

@@ -114,7 +114,7 @@ public class LoginController {
     }
 
     @GetMapping("/logout")
-    public ResponseEntity logout(@RequestHeader("Authorization") String token) {
+    public ResponseEntity logout(@RequestHeader(value="Authorization", required = false) String token) {
         if (token != null && !token.isEmpty()) {
             token = StringUtils.removeStart(token, "Bearer").trim();
             Optional<User> currentUser = userRepository.findByToken(token);
