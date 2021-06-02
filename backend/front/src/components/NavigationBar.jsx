@@ -1,5 +1,5 @@
 import React from 'react';
-// import {connect} from "react-redux";
+import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 // import history from "../utils/history";
 import { Navbar, Nav } from 'react-bootstrap';
@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faUser } from '@fortawesome/free-solid-svg-icons';
 import Utils from '../utils/Utils';
 import BackendService from "../services/BackendService";
-// import {userActions} from "../utils/redux";
+import {userActions} from "../utils/Rdx";
 
 class NavigationBar extends React.Component {
 
@@ -32,8 +32,10 @@ class NavigationBar extends React.Component {
 
     logout() {
         BackendService.logout().finally( () => {
-            Utils.removeUser();
-            this.goHome();
+            // Utils.removeUser();
+            this.props.dispatch(userActions.logout());
+            // this.goHome();
+            this.props.history.push('/login');
         })
     }
 
@@ -48,19 +50,25 @@ class NavigationBar extends React.Component {
                     {/* <Nav.Link href="/home">Home</Nav.Link> */}
                     <Nav.Link as={Link} onClick={this.goHome}>Home</Nav.Link>
                     <Nav.Link onClick={this.goHome}>Another home</Nav.Link>
-                    <Nav.Link onClick={() => { this.props.history.push("/home") }}>Yet another home</Nav.Link>
+                    <Nav.Link onClick={() => { this.props.history.push("/home"); window.location.reload(); }}>Yet another home</Nav.Link>
                 </Nav>
                 </Navbar.Collapse>
                 <Navbar.Text>{uname}</Navbar.Text>
-                { uname &&
-                    <Nav.Link onClick={this.logout}><FontAwesomeIcon icon={faUser} fixedWidth/>{' '}Logout</Nav.Link>
+                {/* <Navbar.Text>{this.props.user && this.props.user.name}</Navbar.Text> */}
+                { this.props.user &&
+                    <Nav.Link onClick={this.logout}><FontAwesomeIcon icon={faUser} fixedWidth/>{' '}Выход</Nav.Link>
                 }
-                { !uname &&
-                    <Nav.Link as={Link} onClick={this.goLogin}><FontAwesomeIcon icon={faUser} fixedWidth/>{' '}Login</Nav.Link>
+                { !this.props.user &&
+                    <Nav.Link onClick={this.goLogin}><FontAwesomeIcon icon={faUser} fixedWidth/>{' '}Вход</Nav.Link>
                 }
             </Navbar>
         );
     }
 }
 
-export default withRouter(NavigationBar);
+function mapStateToProps(state) {
+    const { user } = state.authentication;
+    return { user };
+}
+
+export default connect(mapStateToProps)(withRouter(NavigationBar));
